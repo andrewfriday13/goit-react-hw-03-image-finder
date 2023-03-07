@@ -1,16 +1,42 @@
-export const App = () => {
+import { Component } from 'react'
+import  { Toaster } from 'react-hot-toast';
+
+
+import { Searchbar } from './Search/Searchbar';
+import { ImageGallery } from './ImageGallery/ImageGallery';
+// import { ImageGalleryItem } from './ImageGalleryItem/ImageGalleryItem';
+// import { Loader } from './Loader/Loader';
+// import { Button } from './Button/Button';
+// import { Modal } from './Modal/Modal';
+
+export class App extends Component {
+  state ={
+    imgSerach:''
+  }
+
+  handleSabmit=(imgSerach)=>{
+    this.setState({imgSerach})
+  }
+
+
+  render(){
   return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        color: '#010101'
-      }}
-    >
-      React homework template
+    <div>
+      <Toaster
+      toastOptions={{
+        duration: 1000,
+        style: {
+          background: '#363636',
+          color: '#fffa',
+        }}}
+      />
+       <Searchbar onSearch={this.handleSabmit}/>
+       <ImageGallery value={this.state.imgSerach} /> 
+       {/* <Loader/> */}
+       {/* <Button/>  */}
+       {/* <Modal/> */}
+
     </div>
-  );
+  );}
 };
+ 
