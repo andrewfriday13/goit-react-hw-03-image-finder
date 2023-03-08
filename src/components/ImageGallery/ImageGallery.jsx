@@ -6,42 +6,34 @@ import css from '../../style/styles.css'
 import { Loader } from "components/Loader/Loader";
 import { Button } from "components/Button/Button";
 
-
-
-
 export class ImageGallery  extends Component{
   state={
-    img: null,
+    img: [],
     loading: false,
     error: '',
     page: 1,
    
   }
-   
 
   componentDidUpdate(prevProps, PrevState){
     
-
-    if(prevProps.value !== this.props.value ||
-      PrevState.page !== this.state.page ){
+    if(prevProps.value !== this.props.value ){
       this.setState({loading: true})
-
       getImg(this.props.value.trim(), this.state.page)
       .then((response) =>{
         return response.json()
       })
         
       .then((img)=>{
-        console.log(img)
+
         if(img.hits.length <=0){
-          this.setState({img:''})
+          this.setState({img:[]})
           toast('не вірний')
           return
         }
-        
-        this.setState({
-          img
-        })
+        this.setState(prev=>({
+          img:[...prev.img, ...img.hits]
+        }))
       }
         )
       .catch((error)=>{console.log(error)})
@@ -49,12 +41,7 @@ export class ImageGallery  extends Component{
         this.setState({loading:false})
       })
     }
-    if(PrevState.page !== this.state.page){
-
-      getImg(this.props.value.trim(), this.state.page)
-      .then((response) =>{
-        return response.json()}).then((img)=>{this.setState({img})})
-    }
+   
   }
   handleMore=()=>{
     this.setState((prev)=>({page: prev.page +1}))
@@ -65,12 +52,11 @@ render(){
     <>
     {this.state.loading&&<Loader/>}
     {this.state.img && this.state.img.hits.map(({id, largeImageURL}) =>{
-      return  <ul key={id} className={css.gallery}>
-        <ImageGalleryItem 
+      return  <ImageGalleryItem 
         id={id}
         largeImageURL={largeImageURL}
         />
-    </ul>
+
     })}
     <Button onClick={this.handleMore}/>
     </>
