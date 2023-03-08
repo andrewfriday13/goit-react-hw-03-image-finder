@@ -1,9 +1,11 @@
 import {Component} from "react"
 import toast from 'react-hot-toast';
+import css from '../../style/styles.css'
+
 
 export class Searchbar extends Component {
   state ={
-    value: ''
+    value: '',
   }
 
   handleChange = ({target:{value}}) => {
@@ -31,7 +33,7 @@ export class Searchbar extends Component {
    
 
     <input
-      className="input"
+      className={css.SearchForm_input}
       type="text"
       autoComplete="off"
       autoFocus
@@ -39,7 +41,7 @@ export class Searchbar extends Component {
       img={this.state.value}
       onChange={this.handleChange}
     />
-     <button type="submit" className="button">
+     <button type="submit" className={css.Button}>
       <span className="button-label">Search</span>
     </button>
   </form>
