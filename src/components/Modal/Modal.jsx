@@ -1,13 +1,13 @@
-import React from "react"
+import {Component} from "react"
 
 
-export const Modal =()=>{
+export class Modal extends Component{
+
+ render(){
   return(
     <div className="overlay">
-  <div className="modal">
-    <img src="" alt="" />
-  </div>
-  
+  <div className="modal">{this.props.children}</div>
 </div>
   )
+ }
 }
