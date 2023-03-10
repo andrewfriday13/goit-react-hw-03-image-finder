@@ -4,7 +4,7 @@ import { ImageGalleryItem } from "components/ImageGalleryItem/ImageGalleryItem"
 export const ImageGallery =({img, openModal})=>{
 
     return(
-        <ul>
+        <ul style={{display: 'flex'}}>
          {img.map(({ id, webformatURL, largeImageURL }) => (
          <ImageGalleryItem
           key={id}

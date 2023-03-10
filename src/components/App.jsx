@@ -27,6 +27,7 @@ export class App extends Component {
   }
   componentDidUpdate(_, prevState){
     const { search, page } = this.state;
+    
 
     if (prevState.search !== search || prevState.page !== page) {
       this.setState({ loading: true });
@@ -67,10 +68,15 @@ export class App extends Component {
    this.setState({
     isModalOpen: !this.state.isModalOpen, 
     imgInModal: image,})
-}
- 
- 
+  }
 
+  closeModal=()=>{
+    this.setState({
+      isModalOpen: !this.state.isModalOpen, 
+      imgInModal: null,
+
+    })
+  }
   render(){
   return (
     <div>
@@ -90,9 +96,9 @@ export class App extends Component {
        {this.state.loading && (<Loader/>)}
        {this.state.img.length >0  && <Button onClick={this.handleMore}/>}
 
-       {this.isModalOpen && (
-       <Modal>
-        <img src={this.state.imgInModal} alt="" />
+       {!this.imgInModal && (
+       <Modal onClose={this.closeModal}>
+        <img src={this.state.imgInModal} alt="" width='400' />
        </Modal>)}
 
     </div>
