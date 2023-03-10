@@ -26,7 +26,7 @@ export class App extends Component {
     imgInModal: null,
   }
   componentDidUpdate(_, prevState){
-    const {img, search, page } = this.state;
+    const { search, page } = this.state;
 
     if (prevState.search !== search || prevState.page !== page) {
       this.setState({ loading: true });
@@ -63,7 +63,7 @@ export class App extends Component {
     })
   }
 
-  openModal = image => {
+  openModal = (image) => {
    this.setState({
     isModalOpen: !this.state.isModalOpen, 
     imgInModal: image,})
