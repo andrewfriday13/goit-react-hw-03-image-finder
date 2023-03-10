@@ -14,21 +14,17 @@ export class Modal extends Component{
   }
 
   closeModal = ({code, target, currentTarget}) =>{
-    console.log(target)
-    console.log(currentTarget)
-
-    if(code === 'Escape' || target.className === 'overlay' && target === currentTarget) {
+    if(code === 'Escape' || target === currentTarget) {
      this.props.onClose()
-     return
     }
   }
 
  render(){
-  return createPortal(
-  <div className="overlay" onClick={this.closeModal }>
+  return(
+    createPortal(<div className="overlay" onClick={this.closeModal }>
     <div className="modal">{this.props.children}</div>
     </div>, modalRoot)
-  
+  )
  }
 }
 
