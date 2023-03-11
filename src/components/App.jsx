@@ -1,11 +1,10 @@
 import { Component } from 'react'
 import  { Toaster } from 'react-hot-toast';
-import { getImg } from './fetch/getImg';
 import toast from 'react-hot-toast';
-// import { basicLightbox } from 'basiclightbox';
 
+import { getImg } from './fetch/getImg';
 
-
+import css from '../style/styles.module.css'
 
 import { Searchbar } from './Search/Searchbar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
@@ -27,7 +26,7 @@ export class App extends Component {
   }
   componentDidUpdate(_, prevState){
     const { search, page } = this.state;
-    
+    console.log(this.state.img)
 
     if (prevState.search !== search || prevState.page !== page) {
       this.setState({ loading: true });
@@ -66,39 +65,46 @@ export class App extends Component {
 
   openModal = (image) => {
    this.setState({
-    isModalOpen: !this.state.isModalOpen, 
+    isModalOpen: true, 
     imgInModal: image,})
   }
 
   closeModal=()=>{
+    const {isModalOpen} =this.state
     this.setState({
-      isModalOpen: !this.state.isModalOpen, 
+      isModalOpen: !isModalOpen, 
       imgInModal: null,
 
     })
   }
   render(){
+    const {isModalOpen, img, loading, imgInModal} =this.state
+    const {handleSabmit, openModal, handleMore, closeModal} =this
   return (
-    <div>
+    <div className={css.App}>
       <Toaster
       toastOptions={{
         duration: 1000,
         style: {
+          width: '150px',
           background: '#363636',
           color: '#fffa',
         }}}
       />
-       <Searchbar onSubmit={this.handleSabmit} />
-       <ImageGallery
-        img={this.state.img}
-        openModal={this.openModal}
-        /> 
-       {this.state.loading && (<Loader/>)}
-       {this.state.img.length >0  && <Button onClick={this.handleMore}/>}
+       <Searchbar onSubmit={handleSabmit} />
 
-       {!this.imgInModal && (
-       <Modal onClose={this.closeModal}>
-        <img src={this.state.imgInModal} alt="" width='400' />
+       <ImageGallery
+        img={img}
+        openModal={openModal}
+        /> 
+
+       {loading && (<Loader className={css.Loader}/>)}
+
+       {img.length >0  && <Button onClick={handleMore}/>}
+
+       {isModalOpen && (
+       <Modal onClose={closeModal}>
+        <img src={imgInModal} alt={img.tags} width='400' />
        </Modal>)}
 
     </div>

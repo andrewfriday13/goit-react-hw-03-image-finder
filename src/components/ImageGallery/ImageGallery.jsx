@@ -1,20 +1,28 @@
 import { ImageGalleryItem } from "components/ImageGalleryItem/ImageGalleryItem"
+import PropTypes from 'prop-types';
+import css from '../../style/styles.module.css'
+
 
 
 export const ImageGallery =({img, openModal})=>{
 
     return(
-        <ul style={{display: 'flex'}}>
-         {img.map(({ id, webformatURL, largeImageURL }) => (
+        <ul className={css.ImageGallery}>
+         {img.map(({ id, webformatURL, largeImageURL, tags }) => (
          <ImageGalleryItem
           key={id}
           openModal={openModal}
           webformatURL={webformatURL}
           largeImageURL={largeImageURL}
+          tags={tags}
         />
       ))}
         </ul>
     )
+}
+ImageGallery.propTypes = {
+  img: PropTypes.array.isRequired,
+  openModal: PropTypes.func.isRequired,
 }
 
 

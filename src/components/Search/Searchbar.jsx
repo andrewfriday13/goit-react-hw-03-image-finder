@@ -1,8 +1,7 @@
 import {Component} from "react"
-// import toast from 'react-hot-toast';
-// import css from '../../style/styles.css'
+import PropTypes from 'prop-types';
 
-
+import css from '../../style/styles.module.css'
 export class Searchbar extends Component {
   state ={
     search: ' ',
@@ -24,24 +23,31 @@ export class Searchbar extends Component {
 
 
  render(){
+  const {handleSubmit, handleChange } = this
+  const {search} = this.state
   return (
-  <header className="searchbar">
-  <form className="form"
-    onSubmit={this.handleSubmit}>
+  <header className={css.searchbar}>
+  <form className={css.SearchForm}
+    onSubmit={handleSubmit}>
     <input
-      img={this.state.search}
-      onChange={this.handleChange}
+    className={css['SearchForm_input']}
+      img={search}
+      onChange={handleChange}
       type="text"
       autoComplete="off"
       autoFocus
       name="search"
       placeholder="Search images and photos"
     />
-     <button type="submit">
-      <span className="button-label">Search</span>
+     <button type="submit" className={css['SearchForm-button']}>
+      <span>Search</span>
     </button>
   </form>
 </header>
  )
   }
+}
+
+Searchbar.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
 }
