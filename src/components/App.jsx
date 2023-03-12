@@ -27,7 +27,7 @@ export class App extends Component {
   }
   componentDidUpdate(_, prevState){
     const { search, page, totalImg, img } = this.state;
-    const hiddenLoad = totalImg ===  img.length
+
 
     if (prevState.search !== search || prevState.page !== page) {
      
