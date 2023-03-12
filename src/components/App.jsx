@@ -23,12 +23,14 @@ export class App extends Component {
     totalImg: null,
     isModalOpen: false,
     imgInModal: null,
+
   }
   componentDidUpdate(_, prevState){
-    const { search, page } = this.state;
-    console.log(this.state.img)
+    const { search, page, totalImg, img,showLoad } = this.state;
+    const hiddenLoad = totalImg ===  img.length
 
     if (prevState.search !== search || prevState.page !== page) {
+     
       this.setState({ loading: true });
       getImg(search, page)
 
@@ -42,6 +44,7 @@ export class App extends Component {
             img: [...img, ...data.hits],
           }));
           this.setState({ totalImg: data.totalHits });
+         
         })
 
         .catch(error => this.setState({ error: error.message }))
@@ -78,7 +81,7 @@ export class App extends Component {
     })
   }
   render(){
-    const {isModalOpen, img, loading, imgInModal} =this.state
+    const {isModalOpen, img, loading, imgInModal, totalImg} =this.state
     const {handleSabmit, openModal, handleMore, closeModal} =this
   return (
     <div className={css.App}>
@@ -98,9 +101,9 @@ export class App extends Component {
         openModal={openModal}
         /> 
 
-       {loading && (<Loader className={css.Loader}/>)}
+       {loading  && (<Loader className={css.Loader}/>)}
 
-       {img.length >0  && <Button onClick={handleMore}/>}
+       {img.length < totalImg  && <Button onClick={handleMore}/>}
 
        {isModalOpen && (
        <Modal onClose={closeModal}>
