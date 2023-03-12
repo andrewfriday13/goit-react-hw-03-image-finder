@@ -26,7 +26,7 @@ export class App extends Component {
 
   }
   componentDidUpdate(_, prevState){
-    const { search, page, totalImg, img } = this.state;
+    const { search, page} = this.state;
 
 
     if (prevState.search !== search || prevState.page !== page) {
